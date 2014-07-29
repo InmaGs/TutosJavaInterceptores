@@ -10,6 +10,21 @@
         <!-- Agregamos action del ejercicio 1, para la carga del archivo. Tendrá
             dos resultados: uno para el resultado y otro que devuelve al formulario-->
         <action name="carga-archivo" class="com.javatutoriales.interceptores.actions.CargaArchivo">
+            <!-- Incluimos un interceptor, por indicarlo de forma explícita, añadiendo los 
+                parámetros necesarios. En este caso, uno que sólo permita cierto tipo de archivos-->
+            <interceptor-ref name="fileUpload">
+                <param name="allowedTypes">image/png,image/jpeg</param>
+            </interceptor-ref>
+            <!-- Hay que indicar que se ejecuten también el resto de interceptores del paquete
+                por defecto, ya que si no, sólo se ejecuta el fileUpload y los demás no.-->
+            <interceptor-ref name="defaultStack"/>  
+            
+            <!-- Otro modo de hacer esto, es configurar el default y establecer como parámetros
+                los interceptores que se van a usar:
+                <interceptor-ref name="defaultStack">
+                    <param name="fileUpload.allowedTypes">image/png,image/jpg</param>
+                </interceptor-ref> -->              
+            
             <result>/parametros/resultado.jsp</result>
             <result name="input">/parametros/index.jsp</result>
         </action>
