@@ -7,8 +7,11 @@
     <constant name="struts.configuration.xml.reload" value="true" />
     
     <package name="struts-interceptores" extends="struts-default">
-        <action name="index">
-            <result>/index.jsp</result>
+        <!-- Agregamos action del ejercicio 1, para la carga del archivo. Tendrá
+            dos resultados: uno para el resultado y otro que devuelve al formulario-->
+        <action name="carga-archivo" class="com.javatutoriales.interceptores.actions.CargaArchivo">
+            <result>/parametros/resultado.jsp</result>
+            <result name="input">/parametros/index.jsp</result>
         </action>
     </package>
 </struts>
