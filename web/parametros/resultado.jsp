@@ -1,6 +1,6 @@
 <%-- 
-    Document   : index
-    Created on : 29-jul-2014, 13:29:28
+    Document   : resultado
+    Created on : 29-jul-2014, 14:04:41
     Author     : inmaculada.garcia
 --%>
 
@@ -9,12 +9,13 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Interceptores</title>
+        <title>Parametros</title>
     </head>
     <body>
-        <h1>Ejercicios de Interceptores</h1>
+        <h1>Resultado Ejercicio 1</h1>
         <p>
-            <a href="parametros/index.jsp">Ejercicio 1</a><br/>
+            <a href="index.jsp">Formulario</a><br/>
+            <a href="../index.jsp">Inicio</a>
         </p>
     </body>
 </html>
