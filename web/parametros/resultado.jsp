@@ -5,6 +5,7 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@taglib uri="/struts-tags" prefix="s" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -13,6 +14,9 @@
     </head>
     <body>
         <h1>Resultado Ejercicio 1</h1>
+        <p>
+            El archivo es de tipo <s:property value="archivoContentType"/>
+        </p>
         <p>
             <a href="index.jsp">Formulario</a><br/>
             <a href="../index.jsp">Inicio</a>

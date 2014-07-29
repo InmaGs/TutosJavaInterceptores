@@ -15,7 +15,13 @@
     <body>
         <h1>Ejercicio 1</h1>
         <p>
-            Formulario para parámetros.
+            Formulario para parámetros.<br/>
+            <!-- Para declarar la subida de archivos es necesario declarar la página 
+                como multipart/form-data-->
+            <s:form action="carga-archivo" enctype="multipart/form-data">
+                <s:file name="archivo" label="Archivo"/>
+                <s:submit value="Enviar"/>
+            </s:form>
         </p>
         <p>
             <a href="../index.jsp">Inicio</a>
