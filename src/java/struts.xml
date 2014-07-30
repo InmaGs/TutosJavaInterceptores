@@ -7,17 +7,40 @@
     <constant name="struts.configuration.xml.reload" value="true" />
     
     <package name="struts-interceptores" extends="struts-default">
+        <!-- Vamos a 'inventar' una pila de interceptores, que se apliquen a todas las action declaradas,
+            con lo que los interceptores dentro del action dejan de tener sentido y se comentan.-->
+        <interceptors>
+            
+            <!-- Declaramos los interceptores que hemos 'creado' -->
+            <interceptor name="saludo" class="com.javatutoriales.interceptores.interceptores.InterceptorSaludo"/>
+            
+            
+            <interceptor-stack name="defaultTimerStack">
+                <interceptor-ref name="fileUpload">
+                    <param name="allowedTypes">image/png</param>
+                </interceptor-ref>
+                <!-- Añado el interceptor creado en segundo lugar en la pila -->
+                <interceptor-ref name="saludo"/>
+                <interceptor-ref name="defaultStack"/>
+                <interceptor-ref name="timer"/>
+                <interceptor-ref name="logger"/>
+            </interceptor-stack>
+        </interceptors>
+        
+        <!-- Asignamos esta pila, la asignamos como pila por defecto -->
+        <default-interceptor-ref name="defaultTimerStack"/>
+            
         <!-- Agregamos action del ejercicio 1, para la carga del archivo. Tendrá
             dos resultados: uno para el resultado y otro que devuelve al formulario-->
         <action name="carga-archivo" class="com.javatutoriales.interceptores.actions.CargaArchivo">
             <!-- Incluimos un interceptor, por indicarlo de forma explícita, añadiendo los 
                 parámetros necesarios. En este caso, uno que sólo permita cierto tipo de archivos-->
-            <interceptor-ref name="fileUpload">
+      <!--  <interceptor-ref name="fileUpload">
                 <param name="allowedTypes">image/png,image/jpeg</param>
             </interceptor-ref>
-            <!-- Hay que indicar que se ejecuten también el resto de interceptores del paquete
-                por defecto, ya que si no, sólo se ejecuta el fileUpload y los demás no.-->
-            <interceptor-ref name="defaultStack"/>  
+                Hay que indicar que se ejecuten también el resto de interceptores del paquete
+                por defecto, ya que si no, sólo se ejecuta el fileUpload y los demás no.
+            <interceptor-ref name="defaultStack"/>  -->
             
             <!-- Otro modo de hacer esto, es configurar el default y establecer como parámetros
                 los interceptores que se van a usar:
