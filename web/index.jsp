@@ -15,6 +15,7 @@
         <h1>Ejercicios de Interceptores</h1>
         <p>
             <a href="parametros/index.jsp">Ejercicio 1</a><br/>
+            <a href="login/menu.jsp">Ejercicio 2</a>
         </p>
     </body>
 </html>

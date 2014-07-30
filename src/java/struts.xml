@@ -7,8 +7,74 @@
     <constant name="struts.configuration.xml.reload" value="true" />
     
     <package name="struts-interceptores" extends="struts-default">
-        <action name="index">
-            <result>/index.jsp</result>
+        <!-- Vamos a 'inventar' una pila de interceptores, que se apliquen a todas las action declaradas,
+            con lo que los interceptores dentro del action dejan de tener sentido y se comentan.-->
+        <interceptors>
+            
+            <!-- Declaramos los interceptores que hemos 'creado' -->
+            <interceptor name="saludo" 
+                         class="com.javatutoriales.interceptores.interceptores.InterceptorSaludo"/>
+            
+            <!-- Configuramos el interceptor de inicio de sesión creado -->
+            <interceptor name="sesionValida" 
+                         class="com.javatutoriales.interceptores.interceptores.InterceptorAcceso"/>
+            
+            <interceptor-stack name="defaultTimerStack">
+                <!-- Añadimos a la pila la sesión válida, lo primero de todo -->
+                <interceptor-ref name="sesionValida">
+                    <!-- Añadimos las acciones que no necesitan login para ejecutarse -->
+                    <param name="actionsPublicos">login,publico</param>
+                </interceptor-ref>
+                <interceptor-ref name="fileUpload">
+                    <param name="allowedTypes">image/png</param>
+                </interceptor-ref>
+                <!-- Añado el interceptor creado como saludo -->
+                <interceptor-ref name="saludo"/>
+                <interceptor-ref name="defaultStack"/>
+                <interceptor-ref name="timer"/>
+                <interceptor-ref name="logger"/>
+            </interceptor-stack>
+        </interceptors>
+        
+        <!-- Asignamos esta pila, la asignamos como pila por defecto -->
+        <default-interceptor-ref name="defaultTimerStack"/>
+        
+        <!-- Se define un result global para todos los action de la aplicación-->
+        <global-results>
+            <result name="login">/login/login.jsp</result>
+        </global-results>
+            
+        <!-- Agregamos action del ejercicio 1, para la carga del archivo. Tendrá
+            dos resultados: uno para el resultado y otro que devuelve al formulario-->
+        <action name="carga-archivo" class="com.javatutoriales.interceptores.actions.CargaArchivo">
+            <!-- Incluimos un interceptor, por indicarlo de forma explícita, añadiendo los 
+                parámetros necesarios. En este caso, uno que sólo permita cierto tipo de archivos-->
+      <!--  <interceptor-ref name="fileUpload">
+                <param name="allowedTypes">image/png,image/jpeg</param>
+            </interceptor-ref>
+                Hay que indicar que se ejecuten también el resto de interceptores del paquete
+                por defecto, ya que si no, sólo se ejecuta el fileUpload y los demás no.
+            <interceptor-ref name="defaultStack"/>  -->
+            
+            <!-- Otro modo de hacer esto, es configurar el default y establecer como parámetros
+                los interceptores que se van a usar:
+                <interceptor-ref name="defaultStack">
+                    <param name="fileUpload.allowedTypes">image/png,image/jpg</param>
+                </interceptor-ref> -->              
+            
+            <result>/parametros/resultado.jsp</result>
+            <result name="input">/parametros/index.jsp</result>
+        </action>
+        <!-- Añado actions para el ejercicio de inicio de sesión-->
+        <action name="publico">
+            <result>/login/publica.jsp</result>
+        </action>
+        <action name="protegido">
+            <result>/login/protegida.jsp</result>
+        </action>
+        <action name="login" class="com.javatutoriales.interceptores.actions.LoginAction">
+            <result>/login/menu.jsp</result>
+            <result name="input">/login/login.jsp</result>
         </action>
     </package>
 </struts>
