@@ -23,7 +23,8 @@
             </s:form>
         </p>
         <p>
-            <a href="../index.jsp">Inicio</a>
+            <a href="../index.jsp">Inicio</a><br/>
+            <a href="menu.jsp">Volver al menú</a>
         </p>
     </body>
 </html>

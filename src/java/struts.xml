@@ -12,14 +12,23 @@
         <interceptors>
             
             <!-- Declaramos los interceptores que hemos 'creado' -->
-            <interceptor name="saludo" class="com.javatutoriales.interceptores.interceptores.InterceptorSaludo"/>
+            <interceptor name="saludo" 
+                         class="com.javatutoriales.interceptores.interceptores.InterceptorSaludo"/>
             
+            <!-- Configuramos el interceptor de inicio de sesión creado -->
+            <interceptor name="sesionValida" 
+                         class="com.javatutoriales.interceptores.interceptores.InterceptorAcceso"/>
             
             <interceptor-stack name="defaultTimerStack">
+                <!-- Añadimos a la pila la sesión válida, lo primero de todo -->
+                <interceptor-ref name="sesionValida">
+                    <!-- Añadimos las acciones que no necesitan login para ejecutarse -->
+                    <param name="actionsPublicos">login,publico</param>
+                </interceptor-ref>
                 <interceptor-ref name="fileUpload">
                     <param name="allowedTypes">image/png</param>
                 </interceptor-ref>
-                <!-- Añado el interceptor creado en segundo lugar en la pila -->
+                <!-- Añado el interceptor creado como saludo -->
                 <interceptor-ref name="saludo"/>
                 <interceptor-ref name="defaultStack"/>
                 <interceptor-ref name="timer"/>
@@ -29,6 +38,11 @@
         
         <!-- Asignamos esta pila, la asignamos como pila por defecto -->
         <default-interceptor-ref name="defaultTimerStack"/>
+        
+        <!-- Se define un result global para todos los action de la aplicación-->
+        <global-results>
+            <result name="login">/login/login.jsp</result>
+        </global-results>
             
         <!-- Agregamos action del ejercicio 1, para la carga del archivo. Tendrá
             dos resultados: uno para el resultado y otro que devuelve al formulario-->
@@ -50,6 +64,17 @@
             
             <result>/parametros/resultado.jsp</result>
             <result name="input">/parametros/index.jsp</result>
+        </action>
+        <!-- Añado actions para el ejercicio de inicio de sesión-->
+        <action name="publico">
+            <result>/login/publica.jsp</result>
+        </action>
+        <action name="protegido">
+            <result>/login/protegida.jsp</result>
+        </action>
+        <action name="login" class="com.javatutoriales.interceptores.actions.LoginAction">
+            <result>/login/menu.jsp</result>
+            <result name="input">/login/login.jsp</result>
         </action>
     </package>
 </struts>

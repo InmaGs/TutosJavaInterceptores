@@ -15,7 +15,7 @@
         <h1>Página Pública</h1>
         <p>Esta es una página pública. Todo el mundo puede ver su contenido</p>
         <p>
-            <a href="login.jsp">Volver al login</a><br/>
+            <a href="login.jsp">Ir al login</a><br/>
             <a href="menu.jsp">Volver al menú</a><br/>
             <a href="../inicio.jsp">Inicio</a>
         </p>
